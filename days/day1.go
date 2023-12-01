@@ -8,19 +8,19 @@ import (
 	"strings"
 )
 
-var intStrings = make(map[string]string)
+var intStrings = make(map[string]int)
 
 func init() {
-	intStrings["one"] = "1"
-	intStrings["two"] = "2"
-	intStrings["three"] = "3"
-	intStrings["four"] = "4"
-	intStrings["five"] = "5"
-	intStrings["six"] = "6"
-	intStrings["seven"] = "7"
-	intStrings["eight"] = "8"
-	intStrings["nine"] = "9"
-	intStrings["zero"] = "0"
+	intStrings["one"] = 1
+	intStrings["two"] = 2
+	intStrings["three"] = 3
+	intStrings["four"] = 4
+	intStrings["five"] = 5
+	intStrings["six"] = 6
+	intStrings["seven"] = 7
+	intStrings["eight"] = 8
+	intStrings["nine"] = 9
+	intStrings["zero"] = 0
 }
 
 func Day1() {
@@ -37,49 +37,39 @@ func Day1() {
 	scanner := bufio.NewScanner(f)
 	var totalCalibrationValue int
 	for scanner.Scan() {
-		var calibrationValue string
+		calibrationValue := -1
 		calibrationText := scanner.Text()
 		for i := 0; i < len(calibrationText); i++ {
-			_, err := strconv.Atoi(string(calibrationText[i]))
+			value, err := strconv.Atoi(string(calibrationText[i]))
 			if err != nil {
-				for k := range intStrings {
+				for k, v := range intStrings {
 					if strings.Contains(calibrationText[0:i+1], k) {
-						calibrationValue = intStrings[k]
+						i = len(calibrationText)
+						calibrationValue = v * 10
 						break
 					}
 				}
-				if len(calibrationValue) == 1 {
-					break
-				} else {
-					continue
-				}
 			} else {
-				calibrationValue = string(calibrationText[i])
+				calibrationValue = value * 10
 				break
 			}
 		}
 		for i := len(calibrationText) - 1; i >= 0; i-- {
-			_, err := strconv.Atoi(string(calibrationText[i]))
+			value, err := strconv.Atoi(string(calibrationText[i]))
 			if err != nil {
-				for k := range intStrings {
+				for k, v := range intStrings {
 					if strings.Contains(calibrationText[i:], k) {
-						calibrationValue += intStrings[k]
+						calibrationValue += v
+						i = 0
 						break
 					}
 				}
-				if len(calibrationValue) == 2 {
-					break
-				} else {
-					continue
-				}
 			} else {
-				calibrationValue += string(calibrationText[i])
+				calibrationValue += value
 				break
 			}
 		}
-		value, err := strconv.Atoi(calibrationValue)
-		Check(err)
-		totalCalibrationValue += value
+		totalCalibrationValue += calibrationValue
 	}
 	fmt.Println(totalCalibrationValue)
 }
