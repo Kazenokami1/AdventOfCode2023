@@ -7,8 +7,8 @@ import (
 type Days struct{}
 
 func (d Days) Day1() { days.Day1() }
+func (d Days) Day2() { days.Day2() }
 
-// func (d Days) Day2()  { days.Day2() }
 // func (d Days) Day3()  { days.Day3() }
 // func (d Days) Day4()  { days.Day4() }
 // func (d Days) Day5()  { days.Day5() }
