@@ -22,7 +22,7 @@ func Day2() {
 	var totalCubePower int
 	for scanner.Scan() {
 		cubePower := 1
-		cubeCounts := strings.FieldsFunc(strings.ReplaceAll(scanner.Text(), ",", ""), Split)
+		cubeCounts := strings.FieldsFunc(strings.ReplaceAll(scanner.Text(), ",", ""), day2split)
 		var minCubes = make(map[string]int)
 		for _, cubes := range cubeCounts {
 			if strings.Contains(cubes, "Game") {
@@ -48,6 +48,6 @@ func Day2() {
 	fmt.Println(totalCubePower)
 }
 
-func Split(r rune) bool {
+func day2split(r rune) bool {
 	return r == ':' || r == ';'
 }
