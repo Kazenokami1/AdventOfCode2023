@@ -32,11 +32,11 @@ func Day3() {
 		}
 		schematicRow++
 	}
-	part1(schematicRows, symbolMap)
-	part2(schematicRows, symbolMap)
+	day3part1(schematicRows, symbolMap)
+	day3part2(schematicRows, symbolMap)
 }
 
-func part1(schematicRows []string, symbolMap map[[2]int]rune) {
+func day3part1(schematicRows []string, symbolMap map[[2]int]rune) {
 	var enginePartNumbers []int
 	var confirmedPart bool
 	var possiblePart string
@@ -88,7 +88,7 @@ func part1(schematicRows []string, symbolMap map[[2]int]rune) {
 	fmt.Println(totalSum)
 }
 
-func part2(schematicRows []string, symbolMap map[[2]int]rune) {
+func day3part2(schematicRows []string, symbolMap map[[2]int]rune) {
 	gearNumbers := make(map[[2]int][]int)
 	var possibleGear bool
 	var gearNumber string
