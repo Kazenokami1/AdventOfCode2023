@@ -46,91 +46,42 @@ func Day13() {
 }
 
 func day13part1(inputByRow [][]string, inputByColumn [][]string) {
-	var mirrored int
+	var summary int
 	for _, input := range inputByRow {
-		var rowMirror int
-		var maxRowsMatched int
-		var numberOfMirrored int
-		var rowsMatched int
-		for i := 1; i < len(input); i += 2 {
-			rowsMatched = 0
-			if input[0] == input[i] {
-				rowMirror = (i + 1) / 2
-				for j := 0; j < rowMirror; j++ {
-					if input[rowMirror+j] != input[rowMirror-j-1] {
-						rowsMatched = 0
-						break
-					}
-					rowsMatched++
-				}
-				if rowsMatched > maxRowsMatched {
-					maxRowsMatched = rowsMatched
-					numberOfMirrored = rowMirror
+		var reflectionFound bool
+		var differences int
+		var i int
+		for !reflectionFound {
+			differences = compareStrings(input, i, i+1, math.Min(float64(i), float64(len(input)-2-i)))
+			if differences == 0 {
+				summary += (i + 1) * 100
+				reflectionFound = true
+			} else {
+				i++
+				if i > len(input)-2 {
+					break
 				}
 			}
 		}
-		for i := len(input) - 2; i >= 0; i -= 2 {
-			rowsMatched = 0
-			if input[len(input)-1] == input[i] {
-				rowMirror = (len(input) + i) / 2
-				for j := 0; j < len(input)-rowMirror; j++ {
-					if input[rowMirror+j] != input[rowMirror-j-1] {
-						rowsMatched = 0
-						break
-					}
-					rowsMatched++
-				}
-				if rowsMatched > maxRowsMatched {
-					maxRowsMatched = rowsMatched
-					numberOfMirrored = rowMirror
-				}
-			}
-		}
-		mirrored += numberOfMirrored * 100
 	}
 	for _, input := range inputByColumn {
-		var colMirror int
-		var maxColsMatched int
-		var colsMatched int
-		var numberOfMirrored int
-		for i := 1; i < len(input); i += 2 {
-			colsMatched = 0
-			if input[0] == input[i] {
-				colMirror = (i + 1) / 2
-				for j := 0; j < colMirror; j++ {
-					if input[colMirror+j] != input[colMirror-j-1] {
-						colsMatched = 0
-						break
-					}
-					colsMatched++
-				}
-				if colsMatched > maxColsMatched {
-					maxColsMatched = colsMatched
-					numberOfMirrored = colMirror
+		var reflectionFound bool
+		var differences int
+		var i int
+		for !reflectionFound {
+			differences = compareStrings(input, i, i+1, math.Min(float64(i), float64(len(input)-2-i)))
+			if differences == 0 {
+				summary += (i + 1)
+				reflectionFound = true
+			} else {
+				i++
+				if i > len(input)-2 {
+					break
 				}
 			}
 		}
-		for i := len(input) - 2; i >= 0; i -= 2 {
-			colsMatched = 0
-			if input[len(input)-1] == input[i] {
-				colMirror = (len(input) + i) / 2
-				colsMatched++
-				for j := 0; j < len(input)-colMirror; j++ {
-					if input[colMirror+j] != input[colMirror-j-1] {
-						colsMatched = 0
-						break
-					}
-					colsMatched++
-				}
-				if colsMatched > maxColsMatched {
-					maxColsMatched = colsMatched
-					numberOfMirrored = colMirror
-				}
-			}
-		}
-		mirrored += numberOfMirrored
 	}
-	fmt.Println(mirrored)
+	fmt.Println(summary)
 }
 
 func day13part2(inputByRow [][]string, inputByColumn [][]string) {
