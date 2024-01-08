@@ -13,3 +13,13 @@ func (p *pipe) addNeighbor(pipe *pipe) {
 type box struct {
 	slots []string
 }
+
+type grid struct {
+	heatLossFromStart int
+	heatValue         int
+	neighbors         []*grid
+}
+
+func (g *grid) addNeighbor(grid *grid) {
+	g.neighbors = append(g.neighbors, grid)
+}
