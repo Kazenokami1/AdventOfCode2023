@@ -23,3 +23,15 @@ type grid struct {
 func (g *grid) addNeighbor(grid *grid) {
 	g.neighbors = append(g.neighbors, grid)
 }
+
+type part struct {
+	xVal      int
+	mVal      int
+	aVal      int
+	sVal      int
+	partValue int
+}
+
+func (p *part) calcPartValue() {
+	p.partValue = p.xVal + p.mVal + p.aVal + p.sVal
+}

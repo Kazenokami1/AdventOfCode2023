@@ -5,3 +5,7 @@ func Check(e error) {
 		panic(e)
 	}
 }
+
+func isGreaterThan(first int, second int) bool {
+	return first > second
+}
